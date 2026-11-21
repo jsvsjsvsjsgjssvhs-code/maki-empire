@@ -1,0 +1,891 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ماكي الإمبراطورية</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --red: #a90029;
+  --bright: #e0003c;
+  --dark: #080608;
+  --panel: #130b10;
+  --muted: #a99aa0;
+  --white: #f8edf1;
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--white);
+  background:
+    radial-gradient(ellipse at 50% 0%, #360b1b 0%, transparent 42%),
+    #080608;
+  font-family: 'Cairo', sans-serif;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(8, 6, 8, .94);
+  border-bottom: 1px solid #651127;
+  backdrop-filter: blur(14px);
+}
+
+.topbar {
+  max-width: 1250px;
+  margin: auto;
+  padding: 13px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  color: #f1dce3;
+  font-size: 25px;
+  font-weight: 900;
+  text-shadow: 0 0 18px #bd003b;
+  white-space: nowrap;
+}
+
+.logo span {
+  color: #e0003c;
+}
+
+nav {
+  display: flex;
+  gap: 23px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #d8c5cc;
+  text-decoration: none;
+  font-size: 14px;
+  transition: .2s;
+}
+
+nav a:hover {
+  color: #ff315e;
+}
+
+.hero {
+  min-height: 570px;
+  max-width: 1450px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(8,6,8,.98) 0%, rgba(8,6,8,.72) 43%, rgba(8,6,8,.12) 100%),
+    linear-gradient(0deg, #080608 0%, transparent 30%),
+    url("maki-hero.png") center 35% / cover no-repeat,
+    radial-gradient(circle at 70% 40%, #641127, #10070c 60%);
+  border-bottom: 1px solid #6e1730;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 70% 40%, transparent 20%, rgba(0,0,0,.35) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(560px, 90%);
+  padding: 55px 7%;
+}
+
+.eyebrow {
+  color: #ff456e;
+  letter-spacing: 3px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-size: clamp(35px, 5vw, 65px);
+  line-height: 1.35;
+  margin: 13px 0;
+  font-weight: 900;
+  text-shadow: 0 4px 25px #000;
+}
+
+.hero h1 span {
+  color: #ef174b;
+}
+
+.hero p {
+  color: #e1cbd3;
+  line-height: 2.1;
+  font-size: 16px;
+  max-width: 460px;
+}
+
+.main-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #e0003c, #76001e);
+  color: white;
+  border: 1px solid #ff587a;
+  padding: 12px 28px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 18px;
+  box-shadow: 0 0 22px #9d002b55;
+}
+
+.main-btn:hover {
+  filter: brightness(1.2);
+}
+
+main {
+  max-width: 1250px;
+  padding: 35px 22px 70px;
+  margin: auto;
+}
+
+.section {
+  margin: 55px 0;
+  scroll-margin-top: 95px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 25px;
+}
+
+.section-title::before {
+  content: "";
+  width: 5px;
+  height: 31px;
+  background: #e0003c;
+  box-shadow: 0 0 13px #e0003c;
+}
+
+.section-title h2 {
+  font-size: 23px;
+  margin: 0;
+}
+
+.section-title small {
+  color: #9e8991;
+  margin-right: auto;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px 17px;
+  color: white;
+  background: #160e13;
+  border: 1px solid #542033;
+  outline: none;
+  border-radius: 5px;
+}
+
+.search-box input:focus {
+  border-color: #d0003a;
+}
+
+.filters {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin: 18px 0 25px;
+}
+
+.filter {
+  border: 1px solid #4b1b2c;
+  background: #160d12;
+  color: #d9c4cd;
+  padding: 7px 16px;
+  border-radius: 30px;
+}
+
+.filter.active, .filter:hover {
+  background: #a90029;
+  border-color: #e0003c;
+  color: white;
+}
+
+.manga-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.manga-card {
+  background: linear-gradient(160deg, #1b1017, #0d090c);
+  border: 1px solid #43202d;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: .25s;
+}
+
+.manga-card:hover {
+  transform: translateY(-5px);
+  border-color: #bd1745;
+  box-shadow: 0 10px 30px #85002733;
+}
+
+.cover {
+  height: 245px;
+  background:
+    radial-gradient(circle at 50% 35%, #77152e, #1a0b13 65%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cover-placeholder {
+  color: #c98b9d;
+  font-size: 45px;
+}
+
+.card-info {
+  padding: 13px;
+}
+
+.card-info h3 {
+  margin: 0 0 7px;
+  font-size: 16px;
+}
+
+.card-info p {
+  color: #a9979f;
+  font-size: 12px;
+  margin: 0 0 12px;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px;
+}
+
+.read-btn {
+  color: white;
+  background: #990026;
+  border: 0;
+  padding: 7px 13px;
+  border-radius: 4px;
+}
+
+.favorite {
+  background: transparent;
+  border: 1px solid #5a2638;
+  color: #f18ba7;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.favorite.active {
+  background: #9e002c;
+  color: white;
+}
+
+.chapter-list {
+  display: grid;
+  gap: 12px;
+}
+
+.chapter-item {
+  background: #140c11;
+  border: 1px solid #3e1b2a;
+  padding: 14px 17px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 5px;
+  color: #e8d7de;
+}
+
+.chapter-item span {
+  color: #a78b96;
+  font-size: 13px;
+}
+
+.empty {
+  padding: 35px;
+  text-align: center;
+  color: #9e8991;
+  border: 1px dashed #542033;
+  border-radius: 8px;
+  grid-column: 1 / -1;
+}
+
+.about-box {
+  background: linear-gradient(135deg, #1c0d15, #0d090c);
+  border: 1px solid #552034;
+  padding: 30px;
+  border-radius: 8px;
+  line-height: 2.2;
+  color: #d9c6ce;
+}
+
+footer {
+  border-top: 1px solid #4c182b;
+  text-align: center;
+  padding: 25px;
+  color: #987f89;
+  font-size: 13px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: #000c;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-box {
+  width: min(520px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #150c12;
+  border: 1px solid #8e1b3d;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 0 45px #9c003c33;
+}
+
+.modal-box h2 {
+  margin-top: 0;
+  color: #ff4d77;
+}
+
+.modal-box input, .modal-box textarea {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  background: #090609;
+  color: white;
+  border: 1px solid #552034;
+  border-radius: 4px;
+}
+
+.modal-box textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.modal-box button {
+  background: #a90029;
+  color: white;
+  border: 0;
+  padding: 10px 18px;
+  border-radius: 4px;
+  margin: 5px 0;
+}
+
+.close-btn {
+  float: left;
+  background: transparent !important;
+  color: #ff7898 !important;
+  font-size: 20px;
+}
+
+.admin-panel {
+  display: none;
+  margin-top: 25px;
+  padding: 20px;
+  background: #160c12;
+  border: 1px solid #8b1b3a;
+  border-radius: 8px;
+}
+
+.admin-panel.show {
+  display: block;
+}
+
+.reader-page {
+  display: none;
+  margin-top: 25px;
+  text-align: center;
+  background: #100a0e;
+  padding: 20px;
+  border: 1px solid #572035;
+}
+
+.reader-page.show {
+  display: block;
+}
+
+.reader-page img {
+  max-width: 100%;
+  height: auto;
+  margin: 10px auto;
+}
+
+@media(max-width: 850px) {
+  .manga-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .hero {
+    min-height: 480px;
+  }
+}
+
+@media(max-width: 600px) {
+  .topbar {
+    padding: 10px 14px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  nav {
+    gap: 15px;
+  }
+
+  nav a {
+    font-size: 12px;
+  }
+
+  .hero {
+    min-height: 520px;
+    background:
+      linear-gradient(0deg, #080608 0%, rgba(8,6,8,.55) 55%, rgba(8,6,8,.12) 100%),
+      url("maki-hero.png") 60% center / cover no-repeat,
+      radial-gradient(circle at 50% 30%, #641127, #10070c 65%);
+    align-items: flex-end;
+  }
+
+  .hero-content {
+    padding: 30px 20px 45px;
+    width: 100%;
+  }
+
+  .hero h1 {
+    font-size: 37px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  main {
+    padding: 20px 13px 50px;
+  }
+
+  .section {
+    margin: 40px 0;
+  }
+
+  .section-title h2 {
+    font-size: 19px;
+  }
+
+  .manga-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .cover {
+    height: 190px;
+  }
+
+  .card-info {
+    padding: 10px;
+  }
+
+  .card-info h3 {
+    font-size: 14px;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="logo">ماكي <span>الإمبراطورية</span></div>
+
+    <nav>
+      <a href="#home">الرئيسية</a>
+      <a href="#library">المكتبة</a>
+      <a href="#chapters">الفصول</a>
+      <a href="#about">حولنا</a>
+      <a href="#" onclick="openAccount();return false;">حسابي</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">MAKI EMPIRE</div>
+    <h1>أهلاً بكِ في<br><span>الإمبراطورية</span></h1>
+    <p>
+      هنا تبدأ الحكايات ولا تنتهي الأسرار...
+      اكتشفي عوالم المانهوا، حيث لكل قصة سر ولكل فصل حكاية.
+    </p>
+    <a class="main-btn" href="#library">اكتشفي المكتبة</a>
+  </div>
+</section>
+
+<main>
+
+<section class="section" id="popular">
+  <div class="section-title">
+    <h2>مختارات الإمبراطورية</h2>
+    <small>قصص تستحق الاكتشاف</small>
+  </div>
+  <div class="manga-grid" id="popularGrid">
+    <div class="empty">ستظهر المانهوا المميزة هنا بعد إضافتها.</div>
+  </div>
+</section>
+
+<section class="section" id="library">
+  <div class="section-title">
+    <h2>مكتبة المانهوا</h2>
+    <small>تصفحي الحكايات</small>
+  </div>
+
+  <div class="search-box">
+    <input id="searchInput" type="search" placeholder="ابحثي عن اسم المانهوا..." oninput="renderManga()">
+  </div>
+
+  <div class="filters">
+    <button class="filter active" onclick="setFilter('الكل',this)">الكل</button>
+    <button class="filter" onclick="setFilter('أكشن',this)">أكشن</button>
+    <button class="filter" onclick="setFilter('رومانسي',this)">رومانسي</button>
+    <button class="filter" onclick="setFilter('فانتازيا',this)">فانتازيا</button>
+    <button class="filter" onclick="setFilter('دراما',this)">دراما</button>
+  </div>
+
+  <div class="manga-grid" id="mangaGrid">
+    <div class="empty">المكتبة فارغة حالياً. ستظهر المانهوا هنا عند إضافتها.</div>
+  </div>
+</section>
+
+<section class="section" id="chapters">
+  <div class="section-title">
+    <h2>أحدث الفصول</h2>
+    <small>آخر الإضافات</small>
+  </div>
+  <div class="chapter-list" id="chapterList">
+    <div class="empty">لا توجد فصول مضافة بعد.</div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="section-title">
+    <h2>عن الإمبراطورية</h2>
+  </div>
+  <div class="about-box">
+    <h2>ماكي الإمبراطورية</h2>
+    <p>
+      مساحة لعشاق المانهوا والقصص الآسيوية.
+      نفتح أبواب عوالم جديدة، ونمنح كل حكاية مكاناً بين صفحات الإمبراطورية.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title">
+    <h2>إدارة الإمبراطورية</h2>
+    <small>لإدارة محتوى الموقع</small>
+  </div>
+
+  <button class="main-btn" onclick="toggleAdmin()">فتح لوحة الإدارة التجريبية</button>
+
+  <div class="admin-panel" id="adminPanel">
+    <h2>إضافة مانهوا</h2>
+    <input id="mangaTitle" placeholder="اسم المانهوا">
+    <input id="mangaCategory" placeholder="التصنيف">
+    <input id="mangaCover" placeholder="رابط صورة الغلاف">
+    <textarea id="mangaDescription" placeholder="وصف المانهوا"></textarea>
+    <button onclick="addManga()">إضافة المانهوا</button>
+
+    <hr style="border-color:#542033;margin:25px 0">
+
+    <h2>إضافة فصل</h2>
+    <input id="chapterManga" placeholder="اسم المانهوا">
+    <input id="chapterTitle" placeholder="عنوان الفصل">
+    <textarea id="chapterPages" placeholder="ضعي روابط صور صفحات الفصل، كل رابط بسطر"></textarea>
+    <button onclick="addChapter()">إضافة الفصل</button>
+
+    <p style="color:#c99aa9;font-size:12px;line-height:2">
+      هذه لوحة تجريبية تحفظ البيانات في المتصفح فقط.
+      ليست لوحة إدارة محمية، ولا ترفعي بيانات حقيقية من خلالها قبل ربط تسجيل الدخول والصلاحيات.
+    </p>
+  </div>
+</section>
+
+<div class="reader-page" id="readerPage">
+  <button onclick="closeReader()">إغلاق الفصل</button>
+  <h2 id="readerTitle"></h2>
+  <div id="readerImages"></div>
+</div>
+
+</main>
+
+<footer>
+  <div class="logo">ماكي <span>الإمبراطورية</span></div>
+  <p>كل حكاية تترك أثراً... وكل فصل يفتح عالماً جديداً.</p>
+  <p>© ماكي الإمبراطورية</p>
+</footer>
+
+<div class="modal" id="accountModal">
+  <div class="modal-box">
+    <button class="close-btn" onclick="closeAccount()">×</button>
+    <h2>حساب الإمبراطورية</h2>
+    <p>واجهة الحساب تجريبية حالياً. تسجيل الدخول الحقيقي يحتاج ربط Supabase.</p>
+    <input placeholder="البريد الإلكتروني" type="email">
+    <input placeholder="كلمة المرور" type="password">
+    <button onclick="alert('تسجيل الحساب غير مفعّل بعد. سنربطه بقاعدة البيانات لاحقاً.')">دخول تجريبي</button>
+    <button onclick="alert('إنشاء الحساب غير مفعّل بعد. سنربطه بقاعدة البيانات لاحقاً.')">إنشاء حساب</button>
+  </div>
+</div>
+
+<script>
+let manga = JSON.parse(localStorage.getItem("maki_manga") || "[]");
+let chapters = JSON.parse(localStorage.getItem("maki_chapters") || "[]");
+let currentFilter = "الكل";
+
+function saveData() {
+  localStorage.setItem("maki_manga", JSON.stringify(manga));
+  localStorage.setItem("maki_chapters", JSON.stringify(chapters));
+}
+
+function safeText(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+    '"':"&quot;", "'":"&#039;"
+  })[char]);
+}
+
+function renderManga() {
+  const grid = document.getElementById("mangaGrid");
+  const popular = document.getElementById("popularGrid");
+  const search = document.getElementById("searchInput").value.trim().toLowerCase();
+
+  const filtered = manga.filter(item => {
+    const matchesSearch = item.title.toLowerCase().includes(search);
+    const matchesCategory = currentFilter === "الكل" || item.category === currentFilter;
+    return matchesSearch && matchesCategory;
+  });
+
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="empty">ماكو نتائج حالياً.</div>';
+  } else {
+    grid.innerHTML = filtered.map((item,index) => `
+      <article class="manga-card">
+        <div class="cover">
+          ${item.cover ? `<img src="${safeText(item.cover)}" alt="غلاف المانهوا" onerror="this.style.display='none'">` : '<div class="cover-placeholder">✦</div>'}
+        </div>
+        <div class="card-info">
+          <h3>${safeText(item.title)}</h3>
+          <p>${safeText(item.category || "بدون تصنيف")}</p>
+          <div class="card-actions">
+            <button class="read-btn" onclick="showChapters('${safeText(item.title)}')">الفصول</button>
+            <button class="favorite" onclick="toggleFavorite(this)">♡</button>
+          </div>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  const featured = manga.slice(0,4);
+  popular.innerHTML = featured.length ? featured.map(item => `
+    <article class="manga-card">
+      <div class="cover">
+        ${item.cover ? `<img src="${safeText(item.cover)}" alt="غلاف" onerror="this.style.display='none'">` : '<div class="cover-placeholder">✦</div>'}
+      </div>
+      <div class="card-info">
+        <h3>${safeText(item.title)}</h3>
+        <p>${safeText(item.category || "مانهوا")}</p>
+        <button class="read-btn" onclick="showChapters('${safeText(item.title)}')">عرض الفصول</button>
+      </div>
+    </article>
+  `).join("") : '<div class="empty">ستظهر مختارات الإمبراطورية هنا.</div>';
+}
+
+function setFilter(category,button) {
+  currentFilter = category;
+  document.querySelectorAll(".filter").forEach(btn => btn.classList.remove("active"));
+  button.classList.add("active");
+  renderManga();
+}
+
+function addManga() {
+  const title = document.getElementById("mangaTitle").value.trim();
+  const category = document.getElementById("mangaCategory").value.trim();
+  const cover = document.getElementById("mangaCover").value.trim();
+  const description = document.getElementById("mangaDescription").value.trim();
+
+  if (!title) {
+    alert("اكتبي اسم المانهوا أولاً");
+    return;
+  }
+
+  manga.push({title, category, cover, description});
+  saveData();
+  renderManga();
+
+  document.getElementById("mangaTitle").value = "";
+  document.getElementById("mangaCategory").value = "";
+  document.getElementById("mangaCover").value = "";
+  document.getElementById("mangaDescription").value = "";
+
+  alert("انضافت المانهوا في النسخة التجريبية.");
+}
+
+function addChapter() {
+  const mangaName = document.getElementById("chapterManga").value.trim();
+  const title = document.getElementById("chapterTitle").value.trim();
+  const pages = document.getElementById("chapterPages").value
+    .split("\n").map(x => x.trim()).filter(Boolean);
+
+  if (!mangaName || !title || !pages.length) {
+    alert("اكتبي اسم المانهوا والفصل وروابط الصفحات");
+    return;
+  }
+
+  chapters.push({mangaName, title, pages});
+  saveData();
+  renderChapters();
+
+  document.getElementById("chapterManga").value = "";
+  document.getElementById("chapterTitle").value = "";
+  document.getElementById("chapterPages").value = "";
+
+  alert("انضاف الفصل في النسخة التجريبية.");
+}
+
+function renderChapters() {
+  const list = document.getElementById("chapterList");
+
+  if (!chapters.length) {
+    list.innerHTML = '<div class="empty">لا توجد فصول مضافة بعد.</div>';
+    return;
+  }
+
+  list.innerHTML = [...chapters].reverse().map((chapter,index) => `
+    <div class="chapter-item">
+      <div>
+        <strong>${safeText(chapter.mangaName)}</strong>
+        <span> — ${safeText(chapter.title)}</span>
+      </div>
+      <button class="read-btn" onclick="openReader(${chapters.length - 1 - index})">قراءة</button>
+    </div>
+  `).join("");
+}
+
+function showChapters(name) {
+  document.getElementById("chapters").scrollIntoView();
+  const matching = chapters.filter(ch => ch.mangaName === name);
+  const list = document.getElementById("chapterList");
+
+  if (!matching.length) {
+    list.innerHTML = '<div class="empty">ماكو فصول مضافة لهذه المانهوا بعد.</div>';
+    return;
+  }
+
+  list.innerHTML = matching.map(ch => `
+    <div class="chapter-item">
+      <strong>${safeText(ch.mangaName)} — ${safeText(ch.title)}</strong>
+      <span>${ch.pages.length} صفحة</span>
+    </div>
+  `).join("");
+}
+
+function openReader(index) {
+  const chapter = chapters[index];
+  if (!chapter) return;
+
+  document.getElementById("readerTitle").textContent =
+    chapter.mangaName + " — " + chapter.title;
+
+  document.getElementById("readerImages").innerHTML =
+    chapter.pages.map(url => `<img src="${safeText(url)}" alt="صفحة من الفصل">`).join("");
+
+  document.getElementById("readerPage").classList.add("show");
+  document.getElementById("readerPage").scrollIntoView();
+}
+
+function closeReader() {
+  document.getElementById("readerPage").classList.remove("show");
+}
+
+function toggleFavorite(button) {
+  button.classList.toggle("active");
+  button.textContent = button.classList.contains("active") ? "♥" : "♡";
+}
+
+function toggleAdmin() {
+  document.getElementById("adminPanel").classList.toggle("show");
+}
+
+function openAccount() {
+  document.getElementById("accountModal").classList.add("show");
+}
+
+function closeAccount() {
+  document.getElementById("accountModal").classList.remove("show");
+}
+
+renderManga();
+renderChapters();
+</script>
+
+</body>
+</html>
